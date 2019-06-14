@@ -1,0 +1,29 @@
+PROGRAM = assign2.exe
+SOURCEPATH = src
+OBJECTS = main.o init.o input.o math.o data.o config.o som.o shuffle.o graphics.o
+OBJECTPATH = obj
+COMPILER = gcc
+CFLAGS = -c -s -w -Wl,-subsystem,windows
+LFLAGS = -lmingw32 -lSDL2main -lSDL2 -lm -mwindows
+LPATHS = -LC:\mingw-w64\libraries\SDL2\lib
+IPATHS = -IC:\mingw-w64\libraries\SDL2\include\SDL2
+
+all: $(PROGRAM)
+
+%.o: $(SOURCEPATH)/%.c $(SOURCEPATH)/%.h $(SOURCEPATH)/defs.h
+	$(COMPILER) $(CFLAGS) $(IPATHS) $(LPATHS) -o $(OBJECTPATH)/$@ $< 
+	
+$(PROGRAM): $(OBJECTS)
+	$(COMPILER) $(addprefix $(OBJECTPATH)/, $(OBJECTS)) $(IPATHS) $(LPATHS) -o $(PROGRAM) $(LFLAGS)
+
+test: $(PROGRAM)
+	./$(PROGRAM)
+
+run:
+	./$(PROGRAM)
+
+stats:
+	wc -l $(SOURCEPATH)/*
+
+clean:
+	rm $(PROGRAM) $(OBJECTPATH)/*

@@ -1,0 +1,101 @@
+COSC 4P03 Winter 2018 Project
+By Anthony Edward Ferski
+5192885 / AF11MB
+
+Introduction:
+	My project was the comparison of various methods to solve the 
+Traveling Salesman Problem. For the purpose of this project, I have written a 
+program that implements multiple algorithms in order to find solutions to this
+problem. The algorithms that were implemented are Random Path, Nearest
+Neighbour, Pairwise Exchange and Genetic. The algorithms were tested for
+optimality on the Berlin52 dataset.
+
+How to run:
+	To run the program, execute the run batch file. If this does not work,
+then execute the build batch file and try again. Otherwise, try compiling and 
+running the source manually in the Java environment of your choice.
+	To use the program, select the algorithm to test from the dropdown box
+and click run. The resulting path should display on the map and the distance
+will be shown. Check the save result checkbox to save the run to a file, which
+is located in data/out/.
+
+Description of problem:
+	The Traveling Salesman is a heavily studied problem in Computer Science.
+The problem is as follows: Given a list of cities to visit, what is the shortest
+path that visits every city once and returns to the starting city? This problem
+can be represented as a set of vertices and edges, forming a fully connected
+graph. Each edge has a cost equivalent to the euclidean distance of the vertices
+it connects. This problem is NP-Complete, and there are many approaches to solve 
+this problem.
+
+Description of algorithms:
+	The algorithms that were implemented are Random Path, Nearest
+Neighbour, Pairwise Exchange and Genetic. All of these algorithms yield
+approximate solutions, so they were tested for optimality.
+
+Random Path:
+	This algorithm simply yields a random path through the cities. This 
+algorithm was implemented instead of brute force, as brute force is not feasable
+for the size of the dataset, and because the focus was on optimality. Brute
+force would eventually lead to an optimal solution, so the baseline algorithm
+would instead test that. Needless to say, this algorithm performs terribly.
+
+Nearest Neighbour:
+	This algorithm is one of the simpler heuristics. From each city, the
+closest city not yet visited is visited. This algorithm runs quickly, and yields
+an alright result. However, it is limited by large crossover due to the nature
+of the heuristic.
+
+Pairwise Exchange:
+	Another heuristic algorithm. Also known as the 2-opt method. Starting 
+from a random path, pairs of edges are swapped with the goal of shortening the
+path by eliminating areas where the paths cross over. This is implemented by 
+reversing a subset of the visitation order. This was the best performing 
+algorithm of the ones tested.
+
+Genetic:
+	An artificial intelligence approach to TSP. A population of individual
+solutions to the problem are mutated and bred over a period of generations, with
+the most fit individual of the final generation being used as the solution.
+Fitness is inverse to the distance of the path represented by the individual's
+chromosome. Using mutation and crossover techniques, a relatively good solution
+can be constructed. This is the most varied of the algorithms, performing about
+as well as Nearest Neighbour. NOTE: Occasionally crashes the program.
+
+Results:
+	All algorithms were run for 30 trials, and the average, median, best and
+worst were collected. Also, the average and best were compared to the global
+optimal solution, with a percentage of how much longer they are being calculated
+as well.
+
+		RP 	NN 	PWE	GEN 	OPT
+
+Average		30250	9318	8262	9276
+Median		30545	9272	8232	9059
+Best 		25394	8182	7799	8104
+Worst		32177	10203	8727	13940
+
+Best Possible					7542
+
+Best % Longer	237	8	3	7
+Avg  % Longer	300	24	10	23
+
+	As you can see, if starting from a random path, you can expect a path
+length about three times longer than optimum. Nearest Neighbour and Genetic 
+performed similarly, and Pairwise Exchange performed the best and most 
+consistently.
+
+	While data was not collected for runtime, Random Path and Nearest 
+Neighbour ran in about the same time, and the same can be said of Pairwise
+Exchange and Genetic, with the latter two running noticably slower.
+
+Conclusions:
+	Out of the algorithms implemented, Pairwise Exchange performed the best.
+Genetic came close, but this may have been due to implementation, as a previous
+implementation done by me seemed to perform slightly better on the same dataset.
+
+	It was planned that more algorithms were to be implemented, but that
+plan may have been too ambitious. It would have been interesting to compare
+runtimes of Dynamic Programming and Combinatorial algorithms such as Held-Karp
+or Branch and Bound, or to compare the optimality of other Artificial
+Intelligence techniques such as Ant Colony Optimization or Self-Organizing Map.
